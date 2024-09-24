@@ -22,34 +22,55 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
-
+const {
+  LACHAIN_EXPLORER_URL,
+  LACHAIN_RPC_URL,
+  LATESTNET_EXPLORER_URL,
+  LATESTNET_RPC_URL,
+  REPORT_GAS
+} = process.env;
 const config: HardhatUserConfig = {
   solidity: "0.8.4",
   networks: {
-    ropsten: {
-      url: process.env.ROPSTEN_URL || "",
+    lachain: {
+      url: LACHAIN_RPC_URL,
       accounts: accountUtils.getAccounts(),
+      chainId: 274,
+      gasPrice: 1000000007,
     },
-    rinkeby: {
-      url: process.env.RINKEBY_URL || "",
+    latestnet: {
+      url: LATESTNET_RPC_URL,
       accounts: accountUtils.getAccounts(),
-    },
-    kubchain_test: {
-      url: `https://rpc-testnet.bitkubchain.io`,
-      accounts: accountUtils.getAccounts(),
-    },
-    goerli: {
-      url: process.env.GOERLI_URL || "",
-      accounts: accountUtils.getAccounts(),
+      chainId: 418,
+      gasPrice: 1000000007,
     },
   },
   gasReporter: {
-    enabled: process.env.REPORT_GAS !== undefined,
+    enabled: REPORT_GAS !== undefined,
     currency: "USD",
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
-  },
+    apiKey: {
+      lachain: "abc",
+      latestnet: "abc"
+    },
+    customChains: [
+      {
+        network: "lachain",
+        urls: {
+          apiURL: `${LACHAIN_EXPLORER_URL}/api`,
+          browserURL: LACHAIN_EXPLORER_URL
+        }
+      },
+      {
+        network: "latestnet",
+        urls: {
+          apiURL: `${LATESTNET_EXPLORER_URL}/api`,
+          browserURL: LATESTNET_EXPLORER_URL
+        }
+      }
+    ]
+  }
 };
 
 export default config;
