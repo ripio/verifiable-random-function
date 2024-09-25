@@ -26,7 +26,7 @@ npx hardhat run scripts/deploy/nativevrf.ts --network <target-network>
 ```
 Example:
 ```shell
-npx hardhat run scripts/deploy/nativevrf.ts --network kubchain_test
+npx hardhat run scripts/deploy/nativevrf.ts --network latestnet
 ```
 
 ## Run fulfiller bot
@@ -36,7 +36,7 @@ npx hardhat run scripts/examples/fulfill-bot.ts --network <target-network>
 ```
 Example:
 ```shell
-npx hardhat run scripts/examples/fulfill-bot.ts --network kubchain_test
+npx hardhat run scripts/examples/fulfill-bot.ts --network latestnet
 ```
 
 ## Example of Native VRF consumer
